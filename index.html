@@ -3,98 +3,852 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPA'NLOVE - Hébergement Touristique</title>
+  <title>SPA'NLOVE - Hébergement touristique à louer à Istres</title>
+  <meta name="description" content="SPA'NLOVE - Hébergement touristique à louer à Istres, Provence-Alpes-Côte d’Azur. Séjour romantique, détente et spa dans un cadre unique.">
   <style>
+    :root {
+      --blue: #0a84b4;
+      --blue-dark: #075a7d;
+      --green: #16b36b;
+      --bg-light: #e9f7f5;
+      --text-main: #033b4a;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #e8f7f7;
-      color: #033b4a;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-light);
+      color: var(--text-main);
     }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER / HERO */
+
     header {
-      background: linear-gradient(135deg, #0a84b4, #17b36b);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 90, 125, 0.96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
     }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      color: var(--white);
+    }
+
+    .logo span {
+      color: var(--green);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: #dff9ff;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn-nav {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+    }
+
     .hero {
-      text-align: center;
-      padding: 30px;
+      background: radial-gradient(circle at top left, rgba(22, 179, 107, 0.4), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(10, 132, 180, 0.5), transparent 60%),
+                  linear-gradient(135deg, #022837, #064962);
+      color: var(--white);
+      padding: 80px 20px 60px;
+      display: flex;
+      justify-content: center;
     }
-    .hero img {
-      width: 80%;
-      max-width: 600px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      animation: float 4s ease-in-out infinite;
+
+    .hero-inner {
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
     }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      animation: fadeDown 1s ease-out;
     }
-    .section {
-      padding: 40px 20px;
-      text-align: center;
+
+    .hero-subtitle {
+      font-size: 1rem;
+      max-width: 460px;
+      color: #e0f5ff;
+      margin-bottom: 24px;
+      animation: fadeDown 1.4s ease-out;
     }
-    .gallery {
+
+    .hero-badges {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.12);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: var(--white);
+      box-shadow: 0 12px 30px rgba(3, 59, 74, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(3, 59, 74, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: #e6fafe;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      color: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-contact {
+      font-size: 0.9rem;
+      color: #d2f6ff;
+      opacity: 0.9;
+    }
+
+    .hero-contact strong {
+      color: #ffffff;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-main-img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      object-fit: cover;
+      max-height: 420px;
+    }
+
+    .hero-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(2, 40, 55, 0.9);
+      color: var(--white);
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-tag span {
+      font-size: 0.75rem;
+    }
+
+    .hero-tag strong {
+      color: #7cf0b0;
+      font-size: 0.85rem;
+    }
+
+    .hero-badge-top {
+      position: absolute;
+      top: -10px;
+      right: -8px;
+      background: linear-gradient(135deg, #ffdf6b, #ff9a3c);
+      color: #2c1905;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-0.5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* SECTIONS GENERALES */
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      color: #4f6d76;
+    }
+
+    /* 3 PARTIES DESCRIPTION */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
-    .gallery img {
-      width: 300px;
-      height: 200px;
+
+    .about-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 20px 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+      border: 1px solid rgba(11, 126, 157, 0.07);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(22, 179, 107, 0.16), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .about-card:hover::before {
+      opacity: 1;
+    }
+
+    .about-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .about-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .about-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #567079;
+    }
+
+    /* GALERIE */
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.15);
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
       object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-tag {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: rgba(3, 59, 74, 0.82);
+      color: var(--white);
+      font-size: 0.75rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    /* REVIEWS */
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(22, 179, 107, 0.08);
+    }
+
+    .review-stars {
+      color: #ffb400;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .review-text {
+      font-size: 0.88rem;
+      color: #4c6069;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .review-author {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+
+    .review-label {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.7rem;
+      background: rgba(10, 132, 180, 0.08);
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: var(--blue-dark);
+    }
+
+    /* GOOGLE MAPS & CONTACT */
+
+    .map-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.09);
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+      gap: 20px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 260px;
+      border: 0;
+      border-radius: 14px;
+    }
+
+    .contact-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.92rem;
+    }
+
+    .contact-item {
+      padding: 8px 10px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      background: #f5fbfb;
+      border: 1px solid rgba(10, 132, 180, 0.12);
     }
-    .gallery img:hover {
-      transform: scale(1.05);
+
+    .contact-item strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6a848e;
+      margin-bottom: 3px;
     }
+
+    .mini-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn-ghost {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px dashed rgba(10, 132, 180, 0.7);
+      font-size: 0.8rem;
+      background: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: #e8f7ff;
+      transform: translateY(-1px);
+    }
+
+    /* CTA RESERVATION */
+
+    .cta {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: var(--white);
+      border-radius: 22px;
+      padding: 22px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+
+    .cta-text-main {
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .cta-text-sub {
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    /* FOOTER */
+
     footer {
-      background: #0a84b4;
-      color: white;
+      background: #02222f;
+      color: #d2ecf5;
       padding: 20px;
       text-align: center;
+      font-size: 0.78rem;
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #8ce0ff;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 70px;
+      }
+      .hero-buttons {
+        justify-content: flex-start;
+      }
+      .about-grid,
+      .gallery-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .map-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .nav-links {
+        display: none;
+      }
+      .about-grid,
+      .gallery-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 70px 16px 45px;
+      }
+      .section {
+        padding: 45px 16px;
+      }
+      .hero-main-img {
+        max-height: 360px;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- HEADER / NAVBAR -->
   <header>
-    <h1>Bienvenue chez SPA'NLOVE</h1>
-    <p>Hébergement touristique – Détente et évasion en Provence</p>
+    <div class="nav">
+      <div class="logo">SPA'<span>NLOVE</span></div>
+      <nav class="nav-links">
+        <a href="#about">Domaine</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#reviews">Avis</a>
+        <a href="#access">Accès</a>
+      </nav>
+      <button class="btn-nav" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'});">
+        Réserver
+      </button>
+    </div>
   </header>
 
+  <!-- HERO -->
   <section class="hero">
-    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1173758010930938355/original/8a4a3e2f-9c46-44f0-87be-0a19dda7d76b.jpeg?im_w=720&width=720&quality=70&auto=webp" alt="Hébergement SPA'NLOVE" />
-  </section>
+    <div class="hero-inner">
+      <div>
+        <h1 class="hero-title">Hébergement touristique à louer au cœur de la Provence.</h1>
+        <p class="hero-subtitle">
+          SPA'NLOVE vous accueille à Istres pour un séjour romantique, bien-être et détente.
+          Profitez d’un hébergement confortable, d’une ambiance intimiste et d’un accès idéal à la Provence-Alpes-Côte d’Azur.
+        </p>
+        <div class="hero-badges">
+          <div class="badge">Hébergement touristique à louer</div>
+          <div class="badge">Provence-Alpes-Côte d’Azur</div>
+          <div class="badge">Moments à deux &amp; spa</div>
+        </div>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="document.getElementById('reservation').scrollIntoView({behavior:'smooth'});">
+            ✨ Réserver maintenant
+          </button>
+          <button class="btn-secondary" onclick="document.getElementById('access').scrollIntoView({behavior:'smooth'});">
+            📍 Voir l’emplacement
+          </button>
+        </div>
+        <div class="hero-contact">
+          <div><strong>Téléphone :</strong> +33 7 52 97 26 91</div>
+          <div><strong>Email :</strong> <a href="mailto:admin@diverno.site">admin@diverno.site</a></div>
+        </div>
+      </div>
 
-  <section class="section">
-    <h2>Notre Domaine</h2>
-    <p>Situé à Istres en Provence-Alpes-Côte d’Azur, notre hébergement vous offre un moment d'évasion, de détente et de confort. Idéal pour des séjours romantiques, de repos ou de découverte de la région.</p>
-  </section>
-
-  <section class="section">
-    <h2>Galerie</h2>
-    <div class="gallery">
-      <img src="https://www.guide-du-perigord.com/_bibli/annonces/7076/hd/la-bouysse-camping-04.jpg" alt="Image 2" />
-      <img src="https://content.skyscnr.com/available/2098266684/2098266684_WxH.jpg" alt="Image 3" />
+      <div class="hero-image-wrapper">
+        <div class="hero-badge-top">Note moyenne 4,9/5</div>
+        <img class="hero-main-img"
+             src="https://a0.muscache.com/im/pictures/hosting/Hosting-1173758010930938355/original/8a4a3e2f-9c46-44f0-87be-0a19dda7d76b.jpeg?im_w=720&width=720&quality=70&auto=webp"
+             alt="Hébergement SPA'NLOVE à Istres" />
+        <div class="hero-tag">
+          <span>Istres • Provence-Alpes-Côte d’Azur</span>
+          <strong>SPA'NLOVE</strong>
+          <span>Hébergement touristique à louer</span>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- SECTION: 3 PARTIES DESCRIPTION -->
+  <section id="about" class="section">
+    <h2 class="section-title">Un domaine pensé pour vos séjours</h2>
+    <p class="section-subtitle">
+      Trois ambiances pour profiter pleinement de votre hébergement touristique à louer à Istres, entre confort, bien-être et découverte.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-icon">💞</div>
+        <h3>Séjour romantique</h3>
+        <p>
+          Créez des souvenirs inoubliables à deux dans un cocon intime. Lumières douces,
+          ambiance chaleureuse et prestations pensées pour les couples en quête de détente.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">💧</div>
+        <h3>Bien-être &amp; relaxation</h3>
+        <p>
+          Offrez-vous une véritable parenthèse de bien-être. Espaces de détente,
+          atmosphère apaisante et confort moderne pour recharger vos batteries en toute sérénité.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">🌿</div>
+        <h3>Provence à portée de main</h3>
+        <p>
+          Profitez d’un emplacement idéal pour explorer la Provence-Alpes-Côte d’Azur :
+          villages typiques, calanques, étangs, nature et patrimoine à quelques minutes en voiture.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: GALERIE -->
+  <section id="gallery" class="section">
+    <h2 class="section-title">Découvrez l’ambiance de SPA'NLOVE</h2>
+    <p class="section-subtitle">
+      Quelques images pour vous plonger dans l’univers de notre hébergement touristique à louer.
+    </p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1173758010930938355/original/8a4a3e2f-9c46-44f0-87be-0a19dda7d76b.jpeg?im_w=720&width=720&quality=70&auto=webp" alt="Intérieur cosy SPA'NLOVE" />
+        <div class="gallery-tag">Espace nuit &amp; détente</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.guide-du-perigord.com/_bibli/annonces/7076/hd/la-bouysse-camping-04.jpg" alt="Extérieur détente" />
+        <div class="gallery-tag">Extérieur &amp; nature</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://content.skyscnr.com/available/2098266684/2098266684_WxH.jpg" alt="Paysages de Provence" />
+        <div class="gallery-tag">Paysages &amp; escapades</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: AVIS / REVIEWS -->
+  <section id="reviews" class="section">
+    <h2 class="section-title">Ils ont séjourné chez SPA'NLOVE</h2>
+    <p class="section-subtitle">
+      Quelques avis de voyageurs séduits par l’ambiance, le confort et la localisation de notre hébergement.
+    </p>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-label">Couple • 2 nuits</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">
+          Séjour parfait pour une escapade en amoureux. L’endroit est propre, cosy et très calme.
+          Nous avons adoré l’ambiance et la proximité des sites à visiter.
+        </div>
+        <div class="review-author">Camille &amp; Julien</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-label">Week-end détente</div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">
+          Un véritable cocon de bien-être&nbsp;! L’hébergement est décoré avec goût, tout est pensé
+          pour se détendre. Nous reviendrons dès que possible.
+        </div>
+        <div class="review-author">Nadia</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-label">Séjour découverte</div>
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">
+          Très bon emplacement pour visiter la région. Hébergement confortable, hôte disponible et
+          de bons conseils pour les restaurants et les activités alentours.
+        </div>
+        <div class="review-author">Marc &amp; Élodie</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: ACCÈS / GOOGLE MAPS + CONTACT -->
+  <section id="access" class="section">
+    <h2 class="section-title">Accès &amp; contact</h2>
+    <p class="section-subtitle">
+      SPA'NLOVE est situé à Istres, dans la zone ZI Le Tube Nord, facilement accessible en voiture.
+    </p>
+
+    <div class="map-card">
+      <div class="map-container">
+        <!-- Google Maps (intégré sur l’adresse) -->
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=ZI+LE+TUBE+NORD+10+RUE+REGIS+HUILLIER+13800+ISTRES+FRANCE&output=embed">
+        </iframe>
+      </div>
+      <div class="contact-block">
+        <div class="contact-item">
+          <strong>Adresse</strong>
+          SPA'NLOVE<br>
+          ZI LE TUBE NORD<br>
+          10 Rue Régis Huillier<br>
+          13800 Istres<br>
+          Provence-Alpes-Côte d’Azur • France
+        </div>
+        <div class="contact-item">
+          <strong>Contact</strong>
+          Téléphone : <a href="tel:+33752972691">+33 7 52 97 26 91</a><br>
+          Email : <a href="mailto:admin@diverno.site">admin@diverno.site</a>
+          <div class="mini-buttons">
+            <button class="btn-ghost" onclick="window.location.href='tel:+33752972691';">
+              📞 Appeler
+            </button>
+            <button class="btn-ghost" onclick="window.location.href='mailto:admin@diverno.site';">
+              ✉️ Écrire un email
+            </button>
+          </div>
+        </div>
+        <div class="contact-item">
+          <strong>Domaine d’activité</strong>
+          Hébergement touristique à louer • Séjours courts &amp; escapades
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: RÉSERVATION -->
+  <section id="reservation" class="section">
+    <div class="cta">
+      <div>
+        <div class="cta-text-main">Prêt à réserver votre séjour chez SPA'NLOVE&nbsp;?</div>
+        <div class="cta-text-sub">
+          Indiquez vos dates, le nombre de personnes et contactez-nous pour finaliser votre réservation.
+        </div>
+      </div>
+      <div>
+        <button class="btn-primary" onclick="window.location.href='mailto:admin@diverno.site?subject=Demande%20de%20r%C3%A9servation%20SPA%27NLOVE';">
+          ✉️ Demander une réservation
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p><strong>SPA'NLOVE</strong></p>
-    <p>ZI LE TUBE NORD, 10 Rue Régis Huillier, 13800 Istres, France</p>
-    <p>Téléphone : +33 7 52 97 26 91</p>
-    <p>Email : admin@diverno.site</p>
+    <div>
+      &copy; <span id="year"></span> SPA'NLOVE – Hébergement touristique à louer à Istres, Provence-Alpes-Côte d’Azur.
+    </div>
+    <div>
+      ZI LE TUBE NORD, 10 Rue Régis Huillier, 13800 Istres • France<br>
+      Tél : <a href="tel:+33752972691">+33 7 52 97 26 91</a> • Email : <a href="mailto:admin@diverno.site">admin@diverno.site</a>
+    </div>
   </footer>
+
+  <script>
+    // Année dynamique dans le footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animation des sections au scroll
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
 </body>
 </html>
